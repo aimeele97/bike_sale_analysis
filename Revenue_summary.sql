@@ -1,4 +1,4 @@
--- SALES TREND ANALYSIS
+-- REVENUE SUMMARY
 
 -- Combine data from orders, order items, and stores into a single table for analysis
 WITH tbl_combine AS (
