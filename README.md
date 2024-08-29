@@ -1,0 +1,1 @@
+This project is focused on analyzing the sales data of the American bike stores using SQL. The goal is to extract insights on sales performance each year, state, customer behavior, top customers and top sale reps to support data-driven business decisions.
