@@ -1,7 +1,7 @@
 -- PRODUCT PERFORMANCE ANALYSIS
 
 -- Create a view to aggregate product sales details
-/* 
+
 CREATE VIEW product_sales_details AS 
 SELECT 
     pro.product_id,
@@ -30,7 +30,7 @@ GROUP BY
     bra.brand_name,
     pro.model_year,
     ite.list_price;
-*/
+
 
 -- Calculate the ratio of quantity and sales by category
 WITH category_performance AS (
