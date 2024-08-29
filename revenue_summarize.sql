@@ -1,204 +1,218 @@
 -- SALES TREND ANALYSIS
 
-with tbl_combine as (
-    select 
+-- Combine data from orders, order items, and stores into a single table for analysis
+WITH tbl_combine AS (
+    SELECT 
         state,
         city,
         ord.store_id,
         ord.customer_id,
         ite.product_id,
-        month(order_date) month,
-        year(order_date) year,
+        MONTH(order_date) AS month,
+        YEAR(order_date) AS year,
         quantity,
         list_price,
         discount,
         final_price
-    from sales.orders ord
-    join sales.order_items ite
-        on ite.order_id = ord.order_id
-    join sales.stores sto 
-        on sto.store_id = ord.store_id 
+    FROM sales.orders ord
+    JOIN sales.order_items ite
+        ON ite.order_id = ord.order_id
+    JOIN sales.stores sto 
+        ON sto.store_id = ord.store_id 
 )
-, tbl_state as (
-    select state,
+-- Calculate annual revenue per state
+, tbl_state AS (
+    SELECT state,
         year,
-        sum(final_price) revenue_per_year
-    from tbl_combine 
-    group by state, year
+        SUM(final_price) AS revenue_per_year
+    FROM tbl_combine 
+    GROUP BY state, year
 )
-select *,
-    cast(revenue_per_year as float) / sum(revenue_per_year) over () ratio
-from tbl_state
-order by cast(revenue_per_year as float) / sum(revenue_per_year) over () desc
+-- Calculate the revenue ratio for each state and sort by the highest ratio
+SELECT *,
+    CAST(revenue_per_year AS FLOAT) / SUM(revenue_per_year) OVER () AS ratio
+FROM tbl_state
+ORDER BY CAST(revenue_per_year AS FLOAT) / SUM(revenue_per_year) OVER () DESC;
 
 /* 
-- Main market is in Newyork city, occupied over 68% total_sales from 2016 to 2018, respectively California for 21% and Texas for around 11%.
-- The most profitable year is in 2017, 2016 is the second and the worst year is in 2018.
+- New York City is the main market, accounting for over 68% of total sales from 2016 to 2018, followed by California at 21% and Texas at around 11%.
+- The most profitable year was 2017, followed by 2016, with 2018 being the least profitable year.
 */
 
--- 
-with tbl_combine as (
-    select 
+-- SALES TREND ANALYSIS WITH MONTHLY DETAILS
+
+-- Combine data from orders, order items, and stores into a single table for detailed analysis
+WITH tbl_combine AS (
+    SELECT 
         state,
         city,
         ord.store_id,
         ord.customer_id,
         ite.product_id,
-        month(order_date) month,
-        year(order_date) year,
+        MONTH(order_date) AS month,
+        YEAR(order_date) AS year,
         quantity,
         list_price,
         discount,
         final_price
-    from sales.orders ord
-    join sales.order_items ite
-        on ite.order_id = ord.order_id
-    join sales.stores sto 
-        on sto.store_id = ord.store_id
+    FROM sales.orders ord
+    JOIN sales.order_items ite
+        ON ite.order_id = ord.order_id
+    JOIN sales.stores sto 
+        ON sto.store_id = ord.store_id
 )
-, tbl_details as (
-    select state, city, month, year,
-        sum(final_price) total_sales
-    from tbl_combine
-    group by state, city, month, year
+-- Calculate total sales per city, state, month, and year
+, tbl_details AS (
+    SELECT state, city, month, year,
+        SUM(final_price) AS total_sales
+    FROM tbl_combine
+    GROUP BY state, city, month, year
 )
-, tbl_ratio as (
-    select *,
-        cast(total_sales as float) / sum(total_sales) over (partition by year) ratio
-    from tbl_details
+-- Calculate the sales ratio per year
+, tbl_ratio AS (
+    SELECT *,
+        CAST(total_sales AS FLOAT) / SUM(total_sales) OVER (PARTITION BY year) AS ratio
+    FROM tbl_details
 )
-, tbl_ym as (
-    select month, year,
-        sum(ratio) sum_ratio
-    from tbl_ratio
-    group by month, year
+-- Aggregate the sales ratio by month and year
+, tbl_ym AS (
+    SELECT month, year,
+        SUM(ratio) AS sum_ratio
+    FROM tbl_ratio
+    GROUP BY month, year
 )
-select *,
-    rank() over (partition by month order by year) ranking
-from tbl_ym
+-- Rank the sales ratio by year for each month
+SELECT *,
+    RANK() OVER (PARTITION BY month ORDER BY year) AS ranking
+FROM tbl_ym;
 
---- find customer, city and state
+-- CUSTOMER, CITY, AND STATE ANALYSIS
 
-select 
-    count(distinct order_id) as num_ord,
-    count(distinct customer_id) as num_cus,
-    count(distinct city) as num_city,
-    count(distinct state) as num_state
-from (
-      select 
+-- Determine the number of distinct orders, customers, cities, and states
+SELECT 
+    COUNT(DISTINCT order_id) AS num_ord,
+    COUNT(DISTINCT customer_id) AS num_cus,
+    COUNT(DISTINCT city) AS num_city,
+    COUNT(DISTINCT state) AS num_state
+FROM (
+      SELECT 
         state,
         city,
         ord.store_id,
         ord.customer_id,
         ite.product_id,
         ord.order_id,
-        month(order_date) month,
-        year(order_date) year,
+        MONTH(order_date) AS month,
+        YEAR(order_date) AS year,
         quantity,
         list_price,
         discount,
         final_price
-    from sales.orders ord
-    join sales.order_items ite
-        on ite.order_id = ord.order_id
-    join sales.stores sto 
-        on sto.store_id = ord.store_id 
-) as subquery
+    FROM sales.orders ord
+    JOIN sales.order_items ite
+        ON ite.order_id = ord.order_id
+    JOIN sales.stores sto 
+        ON sto.store_id = ord.store_id 
+) AS subquery;
 
-/* Based on the result, there are 1615 orders and 1445 customers from 3 different cities and 3 states from JAN 2016 to DEC 2018.*/
+/* Based on the result, there were 1,615 orders and 1,445 customers from 3 different cities and 3 states between January 2016 and December 2018. */
 
--- Determine the number of orders and sales for different days of the week.
+-- SALES ANALYSIS BY DAY OF THE WEEK
 
-select 
-    DATENAME(weekday, ord.order_date) as day_order,
-    count(distinct ord.order_id) num_orders,
-    round(cast(sum(final_price) as float), 2) total_sales
-from sales.orders ord
-join sales.order_items ite
-    on ite.order_id = ord.order_id
-join sales.stores sto 
-    on sto.store_id = ord.store_id 
-group by DATENAME(weekday, ord.order_date)
-order by round(sum(final_price), 2) desc
+-- Determine the number of orders and total sales for each day of the week
+SELECT 
+    DATENAME(weekday, ord.order_date) AS day_order,
+    COUNT(DISTINCT ord.order_id) AS num_orders,
+    ROUND(CAST(SUM(final_price) AS FLOAT), 2) AS total_sales
+FROM sales.orders ord
+JOIN sales.order_items ite
+    ON ite.order_id = ord.order_id
+JOIN sales.stores sto 
+    ON sto.store_id = ord.store_id 
+GROUP BY DATENAME(weekday, ord.order_date)
+ORDER BY ROUND(SUM(final_price), 2) DESC;
 
-/* Base on the result, the company sold the most on Sunday and the mist quiet day is on wednesday*/
+/* Based on the result, the company sold the most on Sundays, and the quietest day for sales was Wednesday. */
 
--- Check the monthly profitability and monthly quantity sold to see if there are patterns in the dataset.
+-- MONTHLY PROFITABILITY AND QUANTITY ANALYSIS
 
-with tbl_combine as (
-    select 
+-- Combine data from orders, order items, and stores for monthly profitability analysis
+WITH tbl_combine AS (
+    SELECT 
         state,
         city,
         ord.store_id,
         ord.customer_id,
         ite.product_id,
-        year(order_date) year,
-        month(order_date) month,
+        YEAR(order_date) AS year,
+        MONTH(order_date) AS month,
         quantity,
         list_price,
         discount,
         final_price
-    from sales.orders ord
-    join sales.order_items ite
-        on ite.order_id = ord.order_id
-    join sales.stores sto 
-        on sto.store_id = ord.store_id 
+    FROM sales.orders ord
+    JOIN sales.order_items ite
+        ON ite.order_id = ord.order_id
+    JOIN sales.stores sto 
+        ON sto.store_id = ord.store_id 
 )
-select 
+-- Calculate total sales and quantity sold per month and year
+SELECT 
     year,
     month,
-    sum(final_price) sales_by_month,
-    sum(quantity) quan_per_month
-from tbl_combine
-group by year, month
-order by year,sales_by_month desc
+    SUM(final_price) AS sales_by_month,
+    SUM(quantity) AS quan_per_month
+FROM tbl_combine
+GROUP BY year, month
+ORDER BY year, sales_by_month DESC;
 
-/* From the result, the best selling month in 2016 is Sep, Aug, Oct. In 2017, the best selling month is in Jun, Mar, Feb. In 2018, the best selling month is Apr, Jan, Mar* 
+/* The best-selling months in 2016 were September, August, and October. In 2017, June, March, and February led sales. In 2018, the top months were April, January, and March.
+   --> No consistent pattern was identified for the best-selling months. */
 
---> No partern relaed for selling month.*/
+-- SALES PERFORMANCE ANALYSIS FOR SALESPEOPLE BY CATEGORY
 
--- Determine the number of times that salespeople hit or failed to hit the sales target for each category
-
-with tbl_combine as (
-    select 
+-- Combine data from orders, order items, stores, and products for sales performance analysis
+WITH tbl_combine AS (
+    SELECT 
         sta.staff_id,
         state,
         city,
         ord.store_id,
         ord.customer_id,
         cat.category_id,
-        year(order_date) year,
-        month(order_date) month,
+        YEAR(order_date) AS year,
+        MONTH(order_date) AS month,
         quantity,
         ite.list_price,
         discount,
         final_price
-    from sales.orders ord
-    join sales.order_items ite
-        on ite.order_id = ord.order_id
-    join sales.stores sto 
-        on sto.store_id = ord.store_id 
-    join sales.staffs sta
-        on ord.staff_id = sta.staff_id
-    join production.products pro 
-        on pro.product_id = ite.product_id
-    join production.categories cat 
-        on cat.category_id = pro.category_id
+    FROM sales.orders ord
+    JOIN sales.order_items ite
+        ON ite.order_id = ord.order_id
+    JOIN sales.stores sto 
+        ON sto.store_id = ord.store_id 
+    JOIN sales.staffs sta
+        ON ord.staff_id = sta.staff_id
+    JOIN production.products pro 
+        ON pro.product_id = ite.product_id
+    JOIN production.categories cat 
+        ON cat.category_id = pro.category_id
 )
--- find out the sale for each categories each month
-, tbl_sort as (
-    select year, month, staff_id, state, store_id, 
-        sum(quantity) total_quantity,
-        sum(final_price) total_sales
-    from tbl_combine
-    group by year, month, staff_id, category_id, state, store_id
+-- Calculate total sales and quantity sold for each category by month and year
+, tbl_sort AS (
+    SELECT year, month, staff_id, state, store_id, 
+        SUM(quantity) AS total_quantity,
+        SUM(final_price) AS total_sales
+    FROM tbl_combine
+    GROUP BY year, month, staff_id, category_id, state, store_id
 )
--- find the top 3 sale person each year
-, tbl_rank as (
-    select year, month, staff_id, state, total_sales,
-        rank() over( partition by year order by total_sales desc ) rank
-    from tbl_sort
+-- Rank the top 3 salespeople each year based on total sales
+, tbl_rank AS (
+    SELECT year, month, staff_id, state, total_sales,
+        RANK() OVER(PARTITION BY year ORDER BY total_sales DESC) AS rank
+    FROM tbl_sort
 )
-select *
-from tbl_rank
-where rank <= '3'
+-- Select only the top 3 salespeople
+SELECT *
+FROM tbl_rank
+WHERE rank <= 3;
