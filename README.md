@@ -1,4 +1,3 @@
-# Bike store 
 
 ![image.png](https://github.com/Aimee-Le/BikeStoreAnalysis/blob/main/logomain.png)
 
