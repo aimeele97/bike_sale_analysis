@@ -1,6 +1,6 @@
 # Bike store 
 
-![image.jpg](https://github.com/Aimee-Le/EcommerceSalesAnalysis/blob/main/logo.jpg)
+![image.png](https://github.com/Aimee-Le/BikeStoreAnalysis/blob/main/logo.png)
 
 ## Overview
 
