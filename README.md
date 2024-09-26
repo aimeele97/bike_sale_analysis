@@ -1,6 +1,6 @@
 # Bike store 
 
-![image.png](https://github.com/Aimee-Le/BikeStoreAnalysis/blob/main/logobike.png)
+![image.png](https://github.com/Aimee-Le/BikeStoreAnalysis/blob/main/logo.png)
 
 ## Overview
 
