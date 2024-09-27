@@ -3,14 +3,14 @@
 
 ## Overview
 
-This project analyzes the performance of a U.S.-based bicycle store from 2016 to 2018. It addresses 10 key questions to help upper management understand business performance and identify strategies for market and product expansion. Besides, this analysis also assist marketing team in identifying target customers for effective campaigns.
+This project analyzes the performance of a bicycle store from 2016 to 2018. Ten key business challenges were investigated. The output will help stakeholders recognise the organization's success throughout time in order to suggest the solutions for further improvement and expansion.
 
 ## Objectives
 
-- Analyze Annual and Monthly Sales: Evaluate total orders, quantity, revenue, and monthly cumulative sales, including growth rates and predictions.
-- Identify Revenue Contributions and Patterns: Assess state revenue contributions, peak sales months, and weekday sales patterns.
-- Evaluate Product Performance: Determine top-performing categories, products.
-- Segment Customers with RFM Analysis: Utilize Recency, Frequency, and Monetary (RFM) analysis to categorize customers for targeted marketing strategies.
+- Analyze annual and monthly sales, monthly cumulative sales, together with the growth rate.
+- Identify revenue contributions and patterns such as state revenue contributions, peak sales months, and weekday sales patterns.
+- Evaluate product performance by category, brand, product itself.
+- Segment customers using RFM analysis.
 
 ## Tasks:
 - Set up workspace: Download CSV files and import to database that was created using Azure Data Studio.
