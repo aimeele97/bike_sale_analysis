@@ -1,6 +1,6 @@
--- CUSTOMER SEGMENTATION - RFM ANALYSIS 
+-- P3: Customer segmentation
 
--- Question 10: What are the monthly sales figures, growth-rate per month to predict for next month’s sales? RFM analysis
+-- Q10: Impact of customer segmentation on sale
 
 WITH tbl_rfm AS (
     SELECT 

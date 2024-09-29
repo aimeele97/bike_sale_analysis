@@ -1,6 +1,6 @@
--- REVENUE SUMMARY
+-- P1: Sale Trends
 
--- Question 1: What are the total orders, quantity, and revenue generated each year?
+-- Q1: Total orders, quantity, and revenue by year
 
 /* Create VIEW for table combine */
 DROP VIEW tbl_combine
@@ -14,19 +14,18 @@ CREATE VIEW tbl_combine AS
 
 SELECT 
     Year,
-    count(order_id) NumberOrders,
-    sum(quantity) Quantity,
-    round(sum(final_price), 2) TotalRevenue
+    COUNT(order_id) NumberOrders,
+    SUM(quantity) Quantity,
+    CAST(SUM(final_price) AS NUMERIC(10,2)) TotalRevenue
 FROM tbl_combine
 GROUP BY Year
 ORDER BY Year;
--- Question 2: What is the revenue accumulative each month ?
-
+-- Q2: Monthly revenue accumulation
 WITH monthly_sales AS (
     SELECT
         year,
         month,
-        SUM(final_price) AS total_sales
+        CAST(SUM(final_price) AS NUMERIC (10,2)) total_sales
     FROM tbl_combine
     GROUP BY year, month
 )
@@ -37,26 +36,17 @@ SELECT
     CAST(SUM(total_sales) OVER (ORDER BY year, month) AS NUMERIC(10,2)) AS accumulative
 FROM monthly_sales;
 
--- Question 3: What are the monthly sales figures, growth-rate per month to predict for next month’s sales?
-SELECT 
+-- Q3: Monthly sales figures and growth rate
     Month,
     Year,
-    SUM(final_price) recent_sale,
-    LAG(SUM(final_price)) over (order by year desc, month) previous_sale,
-    SUM(final_price) - LAG(SUM(final_price)) OVER (ORDER BY year DESC, Month) sale_growth,
-    ROUND(100 *(SUM(final_price) - LAG(SUM(final_price)) OVER (ORDER BY year DESC, month)) / (SUM(final_price) + LAG(SUM(final_price)) OVER (ORDER BY year DESC, month)), 2) growth_rate
+    CAST(SUM(final_price)AS DECIMAL(10,2)) recent_sale,
+    CAST(SUM(final_price) - LAG(SUM(final_price)) OVER (ORDER BY year, Month) AS DECIMAL(10,2)) sale_growth,
+    CAST(100 *(SUM(final_price) - LAG(SUM(final_price)) OVER (ORDER BY year, month)) / (SUM(final_price) + LAG(SUM(final_price)) OVER (ORDER BY year, month)) AS DECIMAL(5,2)) growth_rate
 FROM tbl_combine
-GROUP BY Month, Year 
+GROUP BY Month, Year
+ORDER BY year, growth_rate, month;
 
-SELECT
-    year,
-    month,
-    SUM(final_price) total_sales
-FROM tbl_combine
-GROUP BY ROLLUP(year,month)
-ORDER BY year , month;
-
--- Question 4: What are the monthly sales figures, growth-rate per month to predict for next month’s sales?
+-- Q4: Highest revenue contribution by year
 WITH group_tbl AS (
     SELECT 
         Year,
@@ -72,21 +62,21 @@ SELECT *,
 FROM group_tbl
 ORDER BY year, TotalRevenue desc
 
--- Question 5: What are the monthly sales figures, growth-rate per month to predict for next month’s sales?
+-- Q5: Top 3 best selling month by state
 WITH group_tbl AS (
     SELECT 
         Month,
         Year,
-        state,
-        count(distinct order_id) NumberOrders,
-        sum(quantity) Quantity,
-        round(sum(final_price), 2) TotalRevenue
+        State,
+        COUNT(distinct order_id) NumberOrders,
+        SUM(quantity) Quantity,
+        CAST(SUM(final_price) AS NUMERIC (10,2)) TotalRevenue
     FROM tbl_combine
     GROUP BY state, Year, Month
 )
 , tbl_rank AS (
     SELECT * ,
-        ROUND(TotalRevenue / SUM(TotalRevenue) OVER (PARTITION BY year), 2) AS Ratio,
+        CAST(TotalRevenue / SUM(TotalRevenue) OVER (PARTITION BY year) AS NUMERIC (2,2)) AS Ratio,
         RANK() OVER (PARTITION BY year ORDER BY TotalRevenue desc) rank
     FROM group_tbl
 )
@@ -94,7 +84,7 @@ SELECT *
 FROM tbl_rank
 WHERE rank <=3
 
--- Question 6: What are the monthly sales figures, growth-rate per month to predict for next month’s sales?
+-- Q6: Top 3 performance months by state
 WITH ranked_orders AS (
     SELECT state, Month, Year,
            COUNT(DISTINCT order_id) AS NumberOrders,
@@ -109,7 +99,7 @@ FROM ranked_orders
 WHERE row_number < 4
 ORDER BY state, year;
 
--- Question 7: What are the monthly sales figures, growth-rate per month to predict for next month’s sales?
+-- Q7: Sales patterns by weekday
 WITH tbl_row AS (
 SELECT year,
     State,

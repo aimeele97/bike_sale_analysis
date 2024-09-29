@@ -1,4 +1,4 @@
--- PRODUCT PERFORMANCE ANALYSIS
+-- P2: Product performance
 
 /* Create VIEW to aggregate product sales details*/
 CREATE VIEW product_sales_details AS 
@@ -30,14 +30,18 @@ GROUP BY
     pro.model_year,
     ite.list_price;
 
--- Question 8: Which are the top 10 performing categories?
-SELECT category_name, 
-    SUM(total_quantity) total_quantity
-FROM product_sales_details
-GROUP BY category_name
-ORDER BY SUM(total_quantity) DESC;
+-- Q8: Top 10 performing categories
+with tbl as (
+    SELECT category_name, 
+        SUM(total_quantity) total_quantity
+    FROM product_sales_details
+    GROUP BY category_name
+)
+select *,
+cast(total_quantity as float) / sum(total_quantity) over ()
+from tbl
 
--- Question 9: What are the top 3 selling bikes by each category, show brand name?
+-- Q9: Top 3 bikes by category
 WITH quantity_ratio_per_category AS (
     SELECT 
         product_name,
@@ -60,6 +64,3 @@ WITH quantity_ratio_per_category AS (
 SELECT category_name, product_name, brand_name, brand_name, total_quantity, concat(ratio, '%')
 FROM ranked_quantity
 WHERE rank <= 3;
-
-
-

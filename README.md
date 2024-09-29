@@ -2,327 +2,285 @@
 ![image.png](https://github.com/Aimee-Le/BikeStoreAnalysis/blob/main/logomain.png)
 
 ## Overview
-
-This project analyzes the performance of a bicycle store from 2016 to 2018. Ten key business challenges were investigated. The output will help stakeholders recognise the organization's success throughout time in order to suggest the solutions for further improvement and expansion.
+This project analyzes the performance of a bicycle store from 2016 to 2018. It addresses 10 key business questions, and the findings will assist the business in making informed decisions for future development.
 
 ## Objectives
-
 - Analyze annual and monthly sales, monthly cumulative sales, together with the growth rate.
 - Identify revenue contributions and patterns such as state revenue contributions, peak sales months, and weekday sales patterns.
 - Evaluate product performance by category, brand, product itself.
 - Segment customers using RFM analysis.
 
 ## Tasks:
-- Set up workspace: Download CSV files and import to database that was created using Azure Data Studio.
-- Read and understand the datasets, list all business questions to gain insights from the sets.
-- Data Cleaning: Correct the data types, handle Null values/ duplicate values, delete unvaluable columns, replace wrong data with correct data values, define primary and foreigh key of each table.
-- Data Analysis: Answer given business questions, optimize the codes to reduce the running time 
-- Upload to Github's repository.
+- Set up workspace: download CSV files and import to database that was created using Azure Data Studio.
+- Read, explore to understand business problems, define objectives and key questions.
+- Data cleaning include correct the data types, handle Null values/ duplicate values, delete unvaluable columns to ensure it's accurate and free of errors
+- Data analysis: answer given business questions, optimize the codes to reduce the running time.
+- Documentation: wrap up the project's objetives, observations and upload to Github's repository.
 
 ## Dataset
 
-The data for this project is sourced from the Kaggle dataset:
+The data for this project is the sample data from SQL Server Tutorial
+- **Dataset Link:** [bike-dataset](http://www.sqlservertutorial.net/load-sample-database/)
 
-- **Dataset Link:** [E-Commerce Dataset](https://www.kaggle.com/datasets/thedevastator/unlock-profits-with-e-commerce-sales-data/data?)
+## Business Questions
 
-## Schema - The Datasets were downloaded as CSV file and import to Database using Import Wizard tool
+- [Q1: Total orders, quantity, and revenue by year](#q1-total-orders-quantity-and-revenue-by-year)
+- [Q2: Monthly revenue accumulation](#q2-monthly-revenue-accumulation)
+- [Q3: Monthly sales figures and growth rate](#q3-monthly-sales-figures-and-growth-rate)
+- [Q4: Highest revenue contribution by year](#q4-highest-revenue-contribution-by-year)
+- [Q5: Top 3 best selling month by state](#q5-top-3-months-with-highest-sales-by-state)
+- [Q6: Top 3 performance months by state](#q6-top-3-performance-months-by-state)
+- [Q7: Sales patterns by weekday](#q7-sales-patterns-by-weekday)
+- [Q8: Top 10 performing categories](#q8-top-10-performing-categories)
+- [Q9: Top 3 bikes by category](#q9-top-3-bikes-by-category)
+- [Q10: Impact of customer segmentation on sales](#q10-impact-of-customer-segmentation-on-sales)
 
-```sql
-CREATE DATABASE OnlineClothing;
-USE OnlineClothing;
-```
-
-## Business Problems and Solutions
-
-### Question 1: International sales by month, year
-```sql
-SELECT MONTH(Date) as Month,
-    YEAR(Date) as Year,
-    SUM(Qty) as Quantity,
-    SUM(TotalAmount) as Total_sale,
-    ROUND(SUM(TotalAmount)/SUM(Qty), 2) CostPerItem
-FROM SalesGlobal2022
-GROUP BY MONTH(Date), YEAR(Date)
-ORDER BY Year, Month;
-```
-**Observations:**
-
-###  Question 2: National sales by month, year
-```sql
-SELECT MONTH(Date) as Month,
-    YEAR(Date) as Year,
-    Courier_Status,
-    SUM(Qty) as Quantity,
-    SUM(Amount) as Total_sale,
-    ROUND(SUM(Amount)/SUM(Qty), 2) CostPerItem
-FROM SalesAmazon
-GROUP BY MONTH(Date), YEAR(Date), Courier_Status
-HAVING Courier_Status = 'Shipped'
-ORDER BY Year, Month;
-```
-### Question 3: Top biggest oversea customers paying the most
-```sql
-SELECT CustomerName, 
-    Sum(Qty) as Quantity,
-    Sum(TotalAmount) Total_sale
-FROM SalesGlobal2022
-GROUP BY CustomerName
-ORDER by sum(TotalAmount) desc;
-```
-### Question 4: Best selling products group by category, size, colors
-```sql
-SELECT ama.Category, ama.Size, pro.Color, 
-    SUM(ama.Qty) Quantity, 
-    ROUND(SUM(TotalAmount),2) TotalSales
-FROM SalesGlobal2022 sal
-FULL JOIN ( 
-        SELECT *
-        FROM SalesAmazon
-        WHERE Courier_Status = 'Shipped') ama
-    ON sal.sku = ama.SKU
-JOIN Products pro 
-    ON sal.sku = pro.SKU_Code
-GROUP BY ama.Category, ama.Size, pro.Color
-ORDER BY Quantity desc;
-```
-### Question 5: Top sales by sizes
-```sql
-SELECT Size, sum(Qty) as Quantity, sum(TotalAmount) TotalSales
-FROM SalesGlobal2022
-GROUP BY Size
-ORDER BY TotalSales desc;
-```
-
-### Question 5: Number of order fulfil by Amazon and Merchant, shipping service level
-```sql
-SELECT  Fulfilment, fulfilled_by, ship_service_level, COUNT(Qty) TotalOrders
-FROM SalesAmazon
-GROUP BY Fulfilment, fulfilled_by, ship_service_level;
-```
-### Question 6: Percentage of cancelled orders partition by promotion 
-```sql
-WITH TBL AS (
-    SELECT *,
-        CASE WHEN promotion_ids IS NULL THEN 0
-        ELSE 1 
-        END AS PROMOTION
-    FROM SalesAmazon
-    WHERE STATUS = 'Cancelled'
-)
-SELECT PROMOTION, ROUND(100 * CAST(COUNT(PROMOTION) AS FLOAT)/ SUM(COUNT(PROMOTION)) OVER (), 2) PER_CANCELLED
-FROM TBL
-GROUP BY PROMOTION;
--- TOP 10 products have been cancelled, group by state, types of customers
-SELECT TOP 10 
-    ship_state,
-    SKU, 
-    Category, 
-    B2B,
-    promotion_ids,
-    COUNT(Order_ID) NumberOrdersCancelled
-FROM SalesAmazon
-GROUP BY SKU, B2B, Status, ship_state, Category, promotion_ids
-HAVING STATUS = 'Cancelled'
-ORDER BY NumberOrdersCancelled desc;
-```
-### Quesitons 7: Compare sales between Domestic (through Amazon) and International Sale 
-```sql
-WITH NAT AS (
-    SELECT 
-        MONTH(Date) AS Month,
-        YEAR(Date) AS Year,
-        SUM(Qty) AS qty, 
-        SUM(Amount) AS TotalSalesA
-    FROM SalesAmazon
-    WHERE Courier_Status = 'Shipped'
-    GROUP BY MONTH(Date), YEAR(Date)
-),
-INT AS (
-    SELECT 
-        MONTH(Date) AS Month,
-        YEAR(Date) AS Year,
-        SUM(Qty) AS Quantity,
-        SUM(TotalAmount) AS Total_sale
-    FROM SalesGlobal2022 
-    GROUP BY MONTH(Date), YEAR(Date)
-)
-SELECT 
-    COALESCE(INT.Month, NAT.Month) AS Month,
-    COALESCE(INT.Year, NAT.Year) AS Year,
-    COALESCE(INT.Quantity, 0) AS QuanIn,
-    COALESCE(INT.Total_sale, 0) AS SaleIn,
-    COALESCE(NAT.qty, 0) AS QuanNa,
-    COALESCE(NAT.TotalSalesA, 0) AS SaleNa
-FROM INT
-FULL JOIN NAT
-    ON NAT.Month = INT.Month AND NAT.Year = INT.Year
-ORDER BY Year, Month;
-```
-### Question 8: Total orders, sales by Status, delivery type
-```sql
-SELECT Status, 
-    ship_service_level,
-    SUM(Qty) TotalQuantity, 
-    SUM(Amount) TotalSales
-FROM SalesAmazon ama 
-GROUP BY Status, ship_service_level
-ORDER BY Status, ship_service_level;
-```
-### Question 9: Popular products sales on Amazon
-```sql
-SELECT PRO.Category, ama.Size, 
-    SUM(Qty) TotalQuantity, 
-    ROUND(SUM(Amount),2) TotalSales
-FROM SalesAmazon ama 
-JOIN Products pro 
-    ON ama.sku = pro.SKU_Code 
-GROUP BY pro.Category, ama.Size
-ORDER BY TotalSales desc;
-```
-### Question 10: Order distribution between B2B and B2C
-```sql
-WITH sorted_tbl as (
-    SELECT B2B, 
-    COUNT(Order_ID) NumberOrders,
-    SUM(Qty) TotalQuantity,
-    SUM(Amount) TotalSales
-    FROM SalesAmazon
-    GROUP BY B2B
-)
-SELECT *,
-    round(cast(NumberOrders as float) / sum(NumberOrders) over(), 2) Percent_orders
-FROM sorted_tbl
-```
-### Question 11: Percentage of orders by status and fulfilment methods
-```sql
-WITH TBL AS (
-    SELECT 
-    Fulfilment,
-    Status, 
-    Courier_Status,
-    COUNT(Order_ID) NumberOrders,
-    SUM(Qty) TotalQuantity
-    FROM SalesAmazon ama 
-    GROUP BY Status, Fulfilment, Courier_Status
-)
-SELECT *,
-    Round(cast(NumberOrders as float) / sum(NumberOrders) over(partition by Fulfilment), 2) percent_by_fulfilment
-FROM TBL
-ORDER BY Fulfilment, percent_by_fulfilment DESC;
-```
-### Question 12: Percentage of number orders of Amazon and Mercahnt by State.
-```sql
-WITH City as (
-    SELECT ship_state, Fulfilment, count(Order_ID) as NumberOrders 
-    FROM SalesAmazon
-    GROUP BY ship_state, Fulfilment
-)
-SELECT *, 
-    concat(round(100* cast(NumberOrders as float) / SUM(NumberOrders) OVER (PARTITION BY ship_state), 2), '%') as 'Percentage_state'
-FROM City
-ORDER BY ship_state
-```
-### Question 13:  Extract the states that only Amazon or Merchant fulfilment
-```sql
-WITH City as (
-    SELECT ship_state, Fulfilment, count(Order_ID) as NumberOrders 
-    FROM SalesAmazon
-    GROUP BY ship_state, Fulfilment
-)
-, rank as ( 
-    SELECT *, 
-    count(ship_state) OVER (PARTITION BY ship_state ORDER BY Fulfilment) rank
-    FROM City
-)
-SELECT ship_state, Fulfilment
-FROM rank
-WHERE ship_state in
-    (SELECT ship_state
-    FROM rank
-    GROUP BY ship_state
-    HAVING count(rank) = 1)
-```
-### Question 14: Recent number of days that customers place orders from the last orders
-```sql
-WITH TBL_SORT AS ( 
-    SELECT Date, CustomerName,
-           COUNT(CustomerName) OVER (PARTITION BY CustomerName) AS Count
-    FROM (
-        SELECT Date, CustomerName
-        FROM SalesGlobal2022
-        GROUP BY Date, CustomerName
-    ) AS Temp
-),
-TBL_RANK AS (
-    SELECT Date, CustomerName, Count,
-           RANK() OVER (PARTITION BY CustomerName ORDER BY Date DESC) AS Rank
-    FROM TBL_SORT
-),
-TBL_FINAL AS (
-    SELECT *,
-           DATEDIFF(DAY, Date, LEAD(Date) OVER (PARTITION BY CustomerName ORDER BY Date)) AS Date_difference
-    FROM TBL_RANK
-    WHERE Rank <= 2 AND Count > 1
-)
-SELECT Date AS RecentOrderDate, CustomerName, Count AS TotalOrders, Date_difference
-FROM TBL_FINAL
-WHERE Date_difference IS NOT NULL
-ORDER BY RecentOrderDate DESC, TotalOrders DESC, Date_difference;
-```
-### Question 15: Extract the average order quantity and amount of sales for each products group by month, year. discover the products that out of stock and overstock
-```sql
-/* CREATE VIEW Sale_figures_month AS */
-
-WITH NAT AS (
-    SELECT 
-        SKU,
-        MONTH(Date) AS Month,
-        YEAR(Date) AS Year,
-        SUM(Qty) AS qty, 
-        SUM(Amount) AS TotalSalesA
-    FROM SalesAmazon
-    WHERE Courier_Status = 'Shipped'
-    GROUP BY MONTH(Date), YEAR(Date), SKU
-),
-INT AS (
-    SELECT 
-        SKU,
-        MONTH(Date) AS Month,
-        YEAR(Date) AS Year,
-        SUM(Qty) AS Quantity,
-        SUM(TotalAmount) AS Total_sale
-    FROM SalesGlobal2022 
-    GROUP BY MONTH(Date), YEAR(Date), SKU
-)
-SELECT COALESCE(INT.SKU, NAT.SKU) AS SKU,
-    COALESCE(INT.Month, NAT.Month) AS Month,
-    COALESCE(INT.Year, NAT.Year) AS Year,
-    COALESCE(INT.Quantity, 0) AS QuanIn,
-    COALESCE(INT.Total_sale, 0) AS SaleIn,
-    COALESCE(NAT.qty, 0) AS QuanNa,
-    COALESCE(NAT.TotalSalesA, 0) AS SaleNa
-FROM INT
-FULL JOIN NAT
-    ON NAT.Month = INT.Month AND NAT.Year = INT.Year;
-
-/* Extract the stock number of each products, order by recent month, and year */
-
-SELECT Month, Year, SKU, Category, Stock, sum(QuanIn + QuanNa) OrderQuantity, sum(SaleIn + SaleNa) AmountSales
-FROM Sale_figures_month sal
-JOIN Products pro
-    ON sal.SKU = pro.SKU_Code
-GROUP BY Month, Year, Category, Stock, SKU
-ORDER BY YEAR DESC, MONTH DESC, Stock
-```
 
 ## Findings and Conclusion
+- Sales Trends: Performance peaked in 2017, followed by a significant decline in 2018—indicating an overall downward trend.
+- Market Leadership: New York accounted for about 65% of total revenue each year.
+- Revenue Fluctuations: Revenue fell from $537,192 in April 2018 to $188.99 in June (due to closure in May) but rebounded to $9,484 in the next month.
+- Sales Patterns: No consistent monthly bestsellers across states suggest sales are not seasonally dependent.
+- Ordering Trends: In New York, orders peak on Sundays, Tuesdays, and Thursdays. Texas sees orders on Sundays, Mondays, and Thursdays. California shows no clear pattern.
+- Product Categories: Cruisers are the top-selling bikes, making up 29% of total sales, with Electra as the most popular brand.
+- Customer Breakdown: 44% of customers were regular, 20% were new, high-paying and regular customers comprised 11% and 12%, respectively, while the best customers contributed only 1% of sales.
 
-- **Content Distribution:** 
+### Recommendations:
+- Analyze the factors behind the sales decline post-2017 and implement targeted marketing campaigns, especially in the lucrative New York market. 
+- Improving inventory management and utilizing data analytics will help optimize stock levels and capitalize on peak ordering times.
+- Developing customer loyalty programs, introducing seasonal promotions, diversifying the product range, and enhancing the online shopping experience can attract and retain customers. 
+- Establishing a feedback loop and investing in staff training will further ensure a high-quality customer experience, for sustained growth and profitability.
 
-- **Geographical Insights:**
+## Business questions
+### Q1: Total orders, quantity, and revenue by year
+```sql
+SELECT 
+    Year,
+    COUNT(order_id) NumberOrders,
+    SUM(quantity) Quantity,
+    CAST(SUM(final_price) AS NUMERIC(10,2)) TotalRevenue
+FROM tbl_combine
+GROUP BY Year
+ORDER BY Year;
+```
 
-- **Content Categorization:**
+### Q2: Monthly revenue accumulation
+```sql
+WITH monthly_sales AS (
+    SELECT
+        year,
+        month,
+        CAST(SUM(final_price) AS NUMERIC (10,2)) total_sales
+    FROM tbl_combine
+    GROUP BY year, month
+)
+SELECT 
+    year, 
+    month, 
+    total_sales,
+    CAST(SUM(total_sales) OVER (ORDER BY year, month) AS NUMERIC(10,2)) AS accumulative
+FROM monthly_sales;
+```
+### Q3: Monthly sales figures and growth rate
+```sql
+SELECT
+    Month,
+    Year,
+    CAST(SUM(final_price)AS DECIMAL(10,2)) recent_sale,
+    CAST(SUM(final_price) - LAG(SUM(final_price)) OVER (ORDER BY year, Month) AS DECIMAL(10,2)) sale_growth,
+    CAST(100 *(SUM(final_price) - LAG(SUM(final_price)) OVER (ORDER BY year, month)) / (SUM(final_price) + LAG(SUM(final_price)) OVER (ORDER BY year, month)) AS DECIMAL(5,2)) growth_rate
+FROM tbl_combine
+GROUP BY Month, Year
+ORDER BY year, growth_rate, month;
+```
+### Q4: Highest revenue contribution by year
+```sql
+WITH group_tbl AS (
+    SELECT 
+        Year,
+        state,
+        count(distinct order_id) NumberOrders,
+        sum(quantity) Quantity,
+        round(sum(final_price), 2) TotalRevenue
+    FROM tbl_combine
+    GROUP BY state, Year
+)
+SELECT *,
+    ROUND(TotalRevenue / SUM(TotalRevenue) OVER (PARTITION BY year), 2) AS Ratio
+FROM group_tbl
+ORDER BY year, TotalRevenue desc
+```
+### Q5: Top 3 best selling month by state
+```sql
+WITH group_tbl AS (
+    SELECT 
+        Month,
+        Year,
+        State,
+        COUNT(distinct order_id) NumberOrders,
+        SUM(quantity) Quantity,
+        CAST(SUM(final_price) AS NUMERIC (10,2)) TotalRevenue
+    FROM tbl_combine
+    GROUP BY state, Year, Month
+)
+, tbl_rank AS (
+    SELECT * ,
+        CAST(TotalRevenue / SUM(TotalRevenue) OVER (PARTITION BY year) AS NUMERIC (2,2)) AS Ratio,
+        RANK() OVER (PARTITION BY year ORDER BY TotalRevenue desc) rank
+    FROM group_tbl
+)
+SELECT *
+FROM tbl_rank
+WHERE rank <=3
+```
 
-This analysis provides a comprehensive view of E-commerce clothing business's sales performance to drive business decision-making.
+### Q6: Top 3 performance months by state
+```sql
+WITH ranked_orders AS (
+    SELECT state, Month, Year,
+           COUNT(DISTINCT order_id) AS NumberOrders,
+           SUM(quantity) AS Quantity,
+           ROUND(SUM(final_price), 2) AS TotalRevenue,
+           ROW_NUMBER() OVER (PARTITION BY year, state ORDER BY SUM(final_price) DESC) AS row_number
+    FROM tbl_combine
+    GROUP BY state, Year, Month
+)
+SELECT state, Month, Year, NumberOrders, Quantity, TotalRevenue
+FROM ranked_orders
+WHERE row_number < 4
+ORDER BY state, year;
+```
+### Q7: Sales patterns by weekday
+```sql
+WITH tbl_row AS (
+SELECT year,
+    State,
+    DATENAME(weekday, order_date) AS Date,
+    COUNT(DISTINCT order_id) AS num_orders,
+    ROUND(CAST(SUM(final_price) AS FLOAT), 2) AS total_sales,
+    ROW_NUMBER() OVER (PARTITION BY year, state ORDER BY SUM(final_price) desc) row_number
+FROM tbl_combine
+GROUP BY DATENAME(weekday, order_date), year, State
+)
+SELECT YEAR, state, Date, num_orders, total_sales
+FROM tbl_row 
+WHERE row_number < 4
+order by state, year;
+```
+### Q8: Top 10 performing categories
+```sql
+with tbl as (
+    SELECT category_name, 
+        SUM(total_quantity) total_quantity
+    FROM product_sales_details
+    GROUP BY category_name
+)
+select *,
+cast(total_quantity as float) / sum(total_quantity) over ()
+from tbl
+```
+### Q9: Top 3 bikes by category
+```sql
+-- Q9: Top 3 bikes by category
+WITH quantity_ratio_per_category AS (
+    SELECT 
+        product_name,
+        category_name,
+        brand_name,
+        total_quantity,
+        CAST(100 * CAST(total_quantity AS FLOAT) / SUM(total_quantity) OVER (PARTITION BY category_name) as numeric(5,2)) ratio
+    FROM dbo.product_sales_details
+)
+,ranked_quantity AS (
+    SELECT 
+        category_name, 
+        product_name, 
+        brand_name,
+        total_quantity,
+        ratio,
+        ROW_NUMBER() OVER (PARTITION BY category_name ORDER BY ratio DESC) AS rank
+    FROM quantity_ratio_per_category
+)
+SELECT category_name, product_name, brand_name, brand_name, total_quantity, concat(ratio, '%')
+FROM ranked_quantity
+WHERE rank <= 3;
+```
+### Q10: Impact of customer segmentation on sales
+```sql
 
-**Thank you for your time to review and consiration !**
+WITH tbl_rfm AS (
+    SELECT 
+        customer_id,
+        DATEDIFF(day, MAX(order_date), '2018-12-28') AS recency,
+        COUNT(order_id) AS frequency,
+        ROUND(SUM(CAST(final_price AS FLOAT)), 2) AS monetary
+    FROM tbl_combine
+    GROUP BY customer_id
+)
+/* Calculate the percentile rank for each RFM metric */
+, tbl_rank AS (
+    SELECT *,
+        PERCENT_RANK() OVER (ORDER BY recency) AS r_rank,
+        PERCENT_RANK() OVER (ORDER BY frequency) AS f_rank,
+        PERCENT_RANK() OVER (ORDER BY monetary) AS m_rank
+    FROM tbl_rfm
+)
+/*  Categorize customers into tiers based on RFM scores */
+, tbl_tier AS (
+    SELECT *,
+        CASE 
+            WHEN r_rank <= 0.25 THEN 1
+            WHEN r_rank <= 0.5 THEN 2
+            WHEN r_rank <= 0.75 THEN 3
+            ELSE 4 
+        END AS r_tier,
+        CASE 
+            WHEN f_rank <= 0.25 THEN 1
+            WHEN f_rank <= 0.5 THEN 2
+            WHEN f_rank <= 0.75 THEN 3
+            ELSE 4 
+        END AS f_tier,
+        CASE 
+            WHEN m_rank <= 0.25 THEN 1
+            WHEN m_rank <= 0.5 THEN 2
+            WHEN m_rank <= 0.75 THEN 3
+            ELSE 4 
+        END AS m_tier
+    FROM tbl_rank
+)
+/*Combine tiers to create an RFM score and segment customers*/
+, tbl_score AS (
+    SELECT *, 
+        CONCAT(r_tier, f_tier, m_tier) AS rfm_score
+    FROM tbl_tier
+)
+/* Segment customers based on their RFM score*/
+, tbl_seg AS (
+    SELECT 
+        customer_id,
+        CASE 
+            WHEN rfm_score = '444' THEN 'Best customers'
+            WHEN rfm_score LIKE '4[1-3][1-3]' THEN 'New customers'
+            WHEN rfm_score LIKE '[1-3]4[1-3]' THEN 'Loyal customers'
+            WHEN rfm_score LIKE '[1-3][1-3]4' THEN 'High paying customers'
+            WHEN rfm_score LIKE '44[1-3]' THEN 'New and regular customers'
+            WHEN rfm_score LIKE '[1-3]44' THEN 'Regular high paying customers'
+            WHEN rfm_score LIKE '4[1-3]4' THEN 'New high paying customers'
+            WHEN rfm_score = '111' THEN 'Low-value customers'
+            ELSE 'Normal customers' 
+        END AS cus_segment 
+    FROM tbl_score
+)
+/* Aggregate and calculate the proportion of each customer segment*/
+, tbl_segment AS (
+    SELECT 
+        cus_segment,
+        COUNT(customer_id) AS NumberOfCustomer
+    FROM tbl_seg
+    GROUP BY cus_segment
+)
+/* Display the customer segments along with their ratio */
+SELECT *,
+    ROUND(CAST(NumberOfCustomer AS FLOAT) / SUM(NumberOfCustomer) OVER (), 2) AS Percentage
+FROM tbl_segment;
+```
