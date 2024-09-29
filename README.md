@@ -11,16 +11,29 @@ This project analyzes the performance of a bicycle store from 2016 to 2018. It a
 - Segment customers using RFM analysis.
 
 ## Tasks:
-- Set up workspace: download CSV files and import to database that was created using Azure Data Studio.
-- Read, explore to understand business problems, define objectives and key questions.
-- Data cleaning include correct the data types, handle Null values/ duplicate values, delete unvaluable columns to ensure it's accurate and free of errors
-- Data analysis: answer given business questions, optimize the codes to reduce the running time.
-- Documentation: wrap up the project's objetives, observations and upload to Github's repository.
+- Set Up Workspace: Download CSV files and import them into the database created using Azure Data Studio.
+- Read and understnad the data, define business problems, objectives for the project, and formulate key questions.
+- Data Cleaning: Correct data types, handle null and duplicate values, and remove irrelevant columns to ensure accuracy and eliminate errors.
+- Data Analysis: Answer the specified business questions and optimize code to reduce runtime.
+- Documentation: Summarize the project’s objectives, findings, and observations that clearly outlines the methodology and results, and upload to GitHub repository.
 
 ## Dataset
 
 The data for this project is the sample data from SQL Server Tutorial
 - **Dataset Link:** [bike-dataset](http://www.sqlservertutorial.net/load-sample-database/)
+
+## Business Questions
+
+- [Q1: Total orders, quantity, and revenue by year](#q1-total-orders-quantity-and-revenue-by-year)
+- [Q2: Monthly revenue accumulation](#q2-monthly-revenue-accumulation)
+- [Q3: Monthly sales figures and growth rate](#q3-monthly-sales-figures-and-growth-rate)
+- [Q4: Highest revenue contribution by year](#q4-highest-revenue-contribution-by-year)
+- [Q5: Top 3 best selling month by state](#q5-top-3-months-with-highest-sales-by-state)
+- [Q6: Top 3 performance months by state](#q6-top-3-performance-months-by-state)
+- [Q7: Sales patterns by weekday](#q7-sales-patterns-by-weekday)
+- [Q8: Top 10 performing categories](#q8-top-10-performing-categories)
+- [Q9: Top 3 bikes by category](#q9-top-3-bikes-by-category)
+- [Q10: Impact of customer segmentation on sales](#q10-impact-of-customer-segmentation-on-sales)
 
 ### Findings and Conclusion
 - Sales Trends: Performance peaked in 2017, followed by a significant decline in 2018—indicating an overall downward trend.
@@ -36,19 +49,6 @@ The data for this project is the sample data from SQL Server Tutorial
 - Improving inventory management and utilizing data analytics will help optimize stock levels and capitalize on peak ordering times.
 - Developing customer loyalty programs, introducing seasonal promotions, diversifying the product range, and enhancing the online shopping experience can attract and retain customers. 
 - Establishing a feedback loop and investing in staff training will further ensure a high-quality customer experience, for sustained growth and profitability.
-
-## Business Questions
-
-- [Q1: Total orders, quantity, and revenue by year](#q1-total-orders-quantity-and-revenue-by-year)
-- [Q2: Monthly revenue accumulation](#q2-monthly-revenue-accumulation)
-- [Q3: Monthly sales figures and growth rate](#q3-monthly-sales-figures-and-growth-rate)
-- [Q4: Highest revenue contribution by year](#q4-highest-revenue-contribution-by-year)
-- [Q5: Top 3 best selling month by state](#q5-top-3-months-with-highest-sales-by-state)
-- [Q6: Top 3 performance months by state](#q6-top-3-performance-months-by-state)
-- [Q7: Sales patterns by weekday](#q7-sales-patterns-by-weekday)
-- [Q8: Top 10 performing categories](#q8-top-10-performing-categories)
-- [Q9: Top 3 bikes by category](#q9-top-3-bikes-by-category)
-- [Q10: Impact of customer segmentation on sales](#q10-impact-of-customer-segmentation-on-sales)
 
 ### Q1: Total orders, quantity, and revenue by year
 ```sql
