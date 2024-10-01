@@ -1,4 +1,4 @@
-
+# Bike store revenue analysis
 ![image.png](https://github.com/Aimee-Le/BikeStoreAnalysis/blob/main/logomain.png)
 
 ## Overview
