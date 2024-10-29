@@ -2,6 +2,7 @@
 
 ![Bike Store Logo](https://github.com/Aimee-Le/BikeStoreAnalysis/blob/main/logomain.png)
 
+__Problem Statement__ 
 In the competitive world of retail, data-driven decisions can make all the difference. This blog explores an analysis of a bicycle store's performance from 2016 to 2018, focusing on key business questions to drive future growth.
 
 ## Objectives of the Analysis
@@ -29,14 +30,17 @@ The data used for this analysis comes from a sample provided in the [SQL Server 
 
 The analysis focused on ten key business questions, including:
 
-1. Total orders, quantity, and revenue by year.
-2. Monthly revenue accumulation.
-3. Monthly sales figures and growth rates.
-4. Highest revenue contributions by state and year.
-5. Best-selling months by state.
-6. Sales patterns by weekday.
-7. Top-performing product categories and bikes.
-8. Impact of customer segmentation on sales.
+## Business Questions
+1. **Total orders, quantity sold, and revenue by year.**
+2. **Monthly revenue accumulation.**
+3. **Monthly sales figures and growth rates.**
+4. **Highest revenue contributions by state.**
+5. **Top 3 best-selling months by state.**
+6. **Top 3 performance months by state.**
+7. **Sales patterns by weekday.**
+8. **Top 10 performing product categories.**
+9. **Top 3 bikes by category.**
+10. **Impact of customer segmentation on sales.**
 
 ## Key Findings
 
