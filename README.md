@@ -2,7 +2,7 @@
 
 ![Bike Store Logo](https://github.com/Aimee-Le/BikeStoreAnalysis/blob/main/logomain.png)
 
-__Problem Statement__ 
+__Problem Statement__:
 In the competitive world of retail, data-driven decisions can make all the difference. This blog explores an analysis of a bicycle store's performance from 2016 to 2018, focusing on key business questions to drive future growth.
 
 ## Objectives of the Analysis
