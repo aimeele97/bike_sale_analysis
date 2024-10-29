@@ -1,4 +1,4 @@
--- P1: Sales Trends - State Performance and Sales Patterns
+-- P1: Sales Trends, State Performance and Sales Patterns
 
 -- 1. What were the total orders, quantity sold, and revenue generated each year?
 
