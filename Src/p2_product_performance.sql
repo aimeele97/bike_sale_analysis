@@ -1,4 +1,4 @@
--- P2: Product performance
+-- P2: Product Performance
 
 /* Create VIEW to aggregate product sales details*/
 CREATE VIEW product_sales_details AS 
@@ -30,7 +30,7 @@ GROUP BY
     pro.model_year,
     ite.list_price;
 
--- Q8: Top 10 performing categories
+-- 8. Which product categories performed the best in terms of sales?
 with tbl as (
     SELECT category_name, 
         SUM(total_quantity) total_quantity
@@ -41,7 +41,7 @@ select *,
 cast(total_quantity as float) / sum(total_quantity) over ()
 from tbl
 
--- Q9: Top 3 bikes by category
+-- 9. What are the top three bikes sold in each product category?
 WITH quantity_ratio_per_category AS (
     SELECT 
         product_name,
