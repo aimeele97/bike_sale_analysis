@@ -1,74 +1,105 @@
-# Bike store revenue analysis
-![image.png](https://github.com/Aimee-Le/BikeStoreAnalysis/blob/main/logomain.png)
+# Analyzing Bike Store Revenue: Insights from 2016 to 2018
 
-## Overview
-This project analyzes the performance of a bicycle store from 2016 to 2018. It addresses 10 key business questions, and the findings will assist the business in making informed decisions for future development.
+![Bike Store Logo](https://github.com/Aimee-Le/BikeStoreAnalysis/blob/main/logomain.png)
 
-## Objectives
-- Analyze annual and monthly sales, monthly cumulative sales, together with the growth rate.
-- Identify revenue contributions and patterns such as state revenue contributions, peak sales months, and weekday sales patterns.
-- Evaluate product performance by category, brand, product itself.
-- Segment customers using RFM analysis.
+In the competitive world of retail, data-driven decisions can make all the difference. This blog explores an analysis of a bicycle store's performance from 2016 to 2018, focusing on key business questions to drive future growth.
 
-## Tasks:
-- Set Up Workspace: Download CSV files and import them into the database created using Azure Data Studio.
-- Read and understnad the data, define business problems, objectives for the project, and formulate key questions.
-- Data Cleaning: Correct data types, handle null and duplicate values, and remove irrelevant columns to ensure accuracy and eliminate errors.
-- Data Analysis: Answer the specified business questions and optimize code to reduce runtime.
-- Documentation: Summarize the project’s objectives, findings, and observations that clearly outlines the methodology and results, and upload to GitHub repository.
+## Objectives of the Analysis
 
-## Dataset
+This project aims to achieve several critical objectives:
 
-The data for this project is the sample data from SQL Server Tutorial
-- **Dataset Link:** [bike-dataset](http://www.sqlservertutorial.net/load-sample-database/)
+- **Sales Analysis**: Examine annual and monthly sales figures, including cumulative sales and growth rates.
+- **Revenue Insights**: Identify patterns and contributions from different states, peak sales months, and ordering trends throughout the week.
+- **Product Performance**: Evaluate how different categories, brands, and individual products performed.
+- **Customer Segmentation**: Implement RFM (Recency, Frequency, Monetary) analysis to better understand customer behavior.
 
-## Business Questions
+## Key Tasks Undertaken
 
-- [Q1: Total orders, quantity, and revenue by year](#q1-total-orders-quantity-and-revenue-by-year)
-- [Q2: Monthly revenue accumulation](#q2-monthly-revenue-accumulation)
-- [Q3: Monthly sales figures and growth rate](#q3-monthly-sales-figures-and-growth-rate)
-- [Q4: Highest revenue contribution by year](#q4-highest-revenue-contribution-by-year)
-- [Q5: Top 3 best selling month by state](#q5-top-3-months-with-highest-sales-by-state)
-- [Q6: Top 3 performance months by state](#q6-top-3-performance-months-by-state)
-- [Q7: Sales patterns by weekday](#q7-sales-patterns-by-weekday)
-- [Q8: Top 10 performing categories](#q8-top-10-performing-categories)
-- [Q9: Top 3 bikes by category](#q9-top-3-bikes-by-category)
-- [Q10: Impact of customer segmentation on sales](#q10-impact-of-customer-segmentation-on-sales)
+1. **Workspace Setup**: Downloading and importing relevant CSV files into a database using Azure Data Studio.
+2. **Data Understanding**: Grasping the data structure, defining business problems, and formulating key analytical questions.
+3. **Data Cleaning**: Ensuring accuracy by correcting data types, handling null values, and removing irrelevant columns.
+4. **Data Analysis**: Answering business questions while optimizing SQL queries for performance.
+5. **Documentation**: Summarizing findings and methodologies for clear presentation in the GitHub repository.
 
-### Findings and Conclusion
-- Sales Trends: Performance peaked in 2017, followed by a significant decline in 2018—indicating an overall downward trend.
-- Market Leadership: New York accounted for about 65% of total revenue each year.
-- Revenue Fluctuations: Revenue fell from $537,192 in April 2018 to $188.99 in June (due to closure in May) but rebounded to $9,484 in the next month.
-- Sales Patterns: No consistent monthly bestsellers across states suggest sales are not seasonally dependent.
-- Ordering Trends: In New York, orders peak on Sundays, Tuesdays, and Thursdays. Texas sees orders on Sundays, Mondays, and Thursdays. California shows no clear pattern.
-- Product Categories: Cruisers are the top-selling bikes, making up 29% of total sales, with Electra as the most popular brand.
-- Customer Breakdown: 44% of customers were regular, 20% were new, high-paying and regular customers comprised 11% and 12%, respectively, while the best customers contributed only 1% of sales.
+## Dataset Information
 
-### Recommendations:
-- Analyze the factors behind the sales decline post-2017 and implement targeted marketing campaigns, especially in the lucrative New York market. 
-- Improving inventory management and utilizing data analytics will help optimize stock levels and capitalize on peak ordering times.
-- Developing customer loyalty programs, introducing seasonal promotions, diversifying the product range, and enhancing the online shopping experience can attract and retain customers. 
-- Establishing a feedback loop and investing in staff training will further ensure a high-quality customer experience, for sustained growth and profitability.
+The data used for this analysis comes from a sample provided in the [SQL Server Tutorial](http://www.sqlservertutorial.net/load-sample-database/).
 
-### Q1: Total orders, quantity, and revenue by year
+## Business Questions Explored
+
+The analysis focused on ten key business questions, including:
+
+1. Total orders, quantity, and revenue by year.
+2. Monthly revenue accumulation.
+3. Monthly sales figures and growth rates.
+4. Highest revenue contributions by state and year.
+5. Best-selling months by state.
+6. Sales patterns by weekday.
+7. Top-performing product categories and bikes.
+8. Impact of customer segmentation on sales.
+
+## Key Findings
+
+### Sales Trends
+
+- **Performance Peaks**: The store's performance peaked in 2017, followed by a notable decline in 2018, suggesting an overall downward trend.
+  
+### Market Insights
+
+- **Dominance of New York**: New York contributed approximately 65% of total revenue each year.
+  
+### Revenue Fluctuations
+
+- Revenue saw drastic changes, dropping from $537,192 in April 2018 to $188.99 in June due to a closure in May, before rebounding to $9,484 in July.
+  
+### Sales Patterns
+
+- No consistent best-selling months across states indicate that sales are not heavily seasonally dependent.
+  
+### Ordering Trends
+
+- New York saw peak orders on Sundays, Tuesdays, and Thursdays, while Texas's highest orders were on Sundays and Mondays.
+
+### Product Insights
+
+- **Top-Selling Category**: Cruisers comprised 29% of total sales, with Electra being the most popular brand.
+
+### Customer Breakdown
+
+- The customer base consisted of 44% regulars, 20% new customers, with high-paying and regular customers accounting for 11% and 12%, respectively.
+
+## Recommendations for Future Growth
+
+To reverse the downward trend and capitalize on market potential, consider the following strategies:
+
+- **Targeted Marketing**: Investigate the reasons for the sales decline post-2017 and implement focused marketing campaigns, especially in New York.
+- **Inventory Management**: Utilize data analytics to optimize inventory levels based on peak ordering times.
+- **Customer Engagement**: Develop loyalty programs, introduce seasonal promotions, and enhance the online shopping experience.
+- **Staff Training**: Invest in employee training and establish a feedback loop to ensure excellent customer service.
+
+## Sample SQL Queries Used in the Analysis
+
+Here are a few SQL queries that were instrumental in deriving the insights:
+
+### Total Orders, Quantity, and Revenue by Year
 ```sql
 SELECT 
     Year,
-    COUNT(order_id) NumberOrders,
-    SUM(quantity) Quantity,
-    CAST(SUM(final_price) AS NUMERIC(10,2)) TotalRevenue
+    COUNT(order_id) AS NumberOrders,
+    SUM(quantity) AS Quantity,
+    CAST(SUM(final_price) AS NUMERIC(10,2)) AS TotalRevenue
 FROM tbl_combine
 GROUP BY Year
 ORDER BY Year;
 ```
 
-### Q2: Monthly revenue accumulation
+### Monthly Revenue Accumulation
 ```sql
 WITH monthly_sales AS (
     SELECT
         year,
         month,
-        CAST(SUM(final_price) AS NUMERIC (10,2)) total_sales
+        CAST(SUM(final_price) AS NUMERIC(10,2)) AS total_sales
     FROM tbl_combine
     GROUP BY year, month
 )
@@ -79,133 +110,9 @@ SELECT
     CAST(SUM(total_sales) OVER (ORDER BY year, month) AS NUMERIC(10,2)) AS accumulative
 FROM monthly_sales;
 ```
-### Q3: Monthly sales figures and growth rate
-```sql
-SELECT
-    Month,
-    Year,
-    CAST(SUM(final_price)AS DECIMAL(10,2)) recent_sale,
-    CAST(SUM(final_price) - LAG(SUM(final_price)) OVER (ORDER BY year, Month) AS DECIMAL(10,2)) sale_growth,
-    CAST(100 *(SUM(final_price) - LAG(SUM(final_price)) OVER (ORDER BY year, month)) / (SUM(final_price) + LAG(SUM(final_price)) OVER (ORDER BY year, month)) AS DECIMAL(5,2)) growth_rate
-FROM tbl_combine
-GROUP BY Month, Year
-ORDER BY year, growth_rate, month;
-```
-### Q4: Highest revenue contribution by year
-```sql
-WITH group_tbl AS (
-    SELECT 
-        Year,
-        state,
-        count(distinct order_id) NumberOrders,
-        sum(quantity) Quantity,
-        round(sum(final_price), 2) TotalRevenue
-    FROM tbl_combine
-    GROUP BY state, Year
-)
-SELECT *,
-    ROUND(TotalRevenue / SUM(TotalRevenue) OVER (PARTITION BY year), 2) AS Ratio
-FROM group_tbl
-ORDER BY year, TotalRevenue desc
-```
-### Q5: Top 3 best selling month by state
-```sql
-WITH group_tbl AS (
-    SELECT 
-        Month,
-        Year,
-        State,
-        COUNT(distinct order_id) NumberOrders,
-        SUM(quantity) Quantity,
-        CAST(SUM(final_price) AS NUMERIC (10,2)) TotalRevenue
-    FROM tbl_combine
-    GROUP BY state, Year, Month
-)
-, tbl_rank AS (
-    SELECT * ,
-        CAST(TotalRevenue / SUM(TotalRevenue) OVER (PARTITION BY year) AS NUMERIC (2,2)) AS Ratio,
-        RANK() OVER (PARTITION BY year ORDER BY TotalRevenue desc) rank
-    FROM group_tbl
-)
-SELECT *
-FROM tbl_rank
-WHERE rank <=3
-```
 
-### Q6: Top 3 performance months by state
+### Impact of Customer Segmentation on Sales
 ```sql
-WITH ranked_orders AS (
-    SELECT state, Month, Year,
-           COUNT(DISTINCT order_id) AS NumberOrders,
-           SUM(quantity) AS Quantity,
-           ROUND(SUM(final_price), 2) AS TotalRevenue,
-           ROW_NUMBER() OVER (PARTITION BY year, state ORDER BY SUM(final_price) DESC) AS row_number
-    FROM tbl_combine
-    GROUP BY state, Year, Month
-)
-SELECT state, Month, Year, NumberOrders, Quantity, TotalRevenue
-FROM ranked_orders
-WHERE row_number < 4
-ORDER BY state, year;
-```
-### Q7: Sales patterns by weekday
-```sql
-WITH tbl_row AS (
-SELECT year,
-    State,
-    DATENAME(weekday, order_date) AS Date,
-    COUNT(DISTINCT order_id) AS num_orders,
-    ROUND(CAST(SUM(final_price) AS FLOAT), 2) AS total_sales,
-    ROW_NUMBER() OVER (PARTITION BY year, state ORDER BY SUM(final_price) desc) row_number
-FROM tbl_combine
-GROUP BY DATENAME(weekday, order_date), year, State
-)
-SELECT YEAR, state, Date, num_orders, total_sales
-FROM tbl_row 
-WHERE row_number < 4
-order by state, year;
-```
-### Q8: Top 10 performing categories
-```sql
-with tbl as (
-    SELECT category_name, 
-        SUM(total_quantity) total_quantity
-    FROM product_sales_details
-    GROUP BY category_name
-)
-select *,
-cast(total_quantity as float) / sum(total_quantity) over ()
-from tbl
-```
-### Q9: Top 3 bikes by category
-```sql
--- Q9: Top 3 bikes by category
-WITH quantity_ratio_per_category AS (
-    SELECT 
-        product_name,
-        category_name,
-        brand_name,
-        total_quantity,
-        CAST(100 * CAST(total_quantity AS FLOAT) / SUM(total_quantity) OVER (PARTITION BY category_name) as numeric(5,2)) ratio
-    FROM dbo.product_sales_details
-)
-,ranked_quantity AS (
-    SELECT 
-        category_name, 
-        product_name, 
-        brand_name,
-        total_quantity,
-        ratio,
-        ROW_NUMBER() OVER (PARTITION BY category_name ORDER BY ratio DESC) AS rank
-    FROM quantity_ratio_per_category
-)
-SELECT category_name, product_name, brand_name, brand_name, total_quantity, concat(ratio, '%')
-FROM ranked_quantity
-WHERE rank <= 3;
-```
-### Q10: Impact of customer segmentation on sales
-```sql
-
 WITH tbl_rfm AS (
     SELECT 
         customer_id,
@@ -214,17 +121,15 @@ WITH tbl_rfm AS (
         ROUND(SUM(CAST(final_price AS FLOAT)), 2) AS monetary
     FROM tbl_combine
     GROUP BY customer_id
-)
-/* Calculate the percentile rank for each RFM metric */
-, tbl_rank AS (
+),
+tbl_rank AS (
     SELECT *,
         PERCENT_RANK() OVER (ORDER BY recency) AS r_rank,
         PERCENT_RANK() OVER (ORDER BY frequency) AS f_rank,
         PERCENT_RANK() OVER (ORDER BY monetary) AS m_rank
     FROM tbl_rfm
-)
-/*  Categorize customers into tiers based on RFM scores */
-, tbl_tier AS (
+),
+tbl_tier AS (
     SELECT *,
         CASE 
             WHEN r_rank <= 0.25 THEN 1
@@ -246,39 +151,13 @@ WITH tbl_rfm AS (
         END AS m_tier
     FROM tbl_rank
 )
-/*Combine tiers to create an RFM score and segment customers*/
-, tbl_score AS (
-    SELECT *, 
-        CONCAT(r_tier, f_tier, m_tier) AS rfm_score
-    FROM tbl_tier
-)
-/* Segment customers based on their RFM score*/
-, tbl_seg AS (
-    SELECT 
-        customer_id,
-        CASE 
-            WHEN rfm_score = '444' THEN 'Best customers'
-            WHEN rfm_score LIKE '4[1-3][1-3]' THEN 'New customers'
-            WHEN rfm_score LIKE '[1-3]4[1-3]' THEN 'Loyal customers'
-            WHEN rfm_score LIKE '[1-3][1-3]4' THEN 'High paying customers'
-            WHEN rfm_score LIKE '44[1-3]' THEN 'New and regular customers'
-            WHEN rfm_score LIKE '[1-3]44' THEN 'Regular high paying customers'
-            WHEN rfm_score LIKE '4[1-3]4' THEN 'New high paying customers'
-            WHEN rfm_score = '111' THEN 'Low-value customers'
-            ELSE 'Normal customers' 
-        END AS cus_segment 
-    FROM tbl_score
-)
-/* Aggregate and calculate the proportion of each customer segment*/
-, tbl_segment AS (
-    SELECT 
-        cus_segment,
-        COUNT(customer_id) AS NumberOfCustomer
-    FROM tbl_seg
-    GROUP BY cus_segment
-)
-/* Display the customer segments along with their ratio */
-SELECT *,
-    ROUND(CAST(NumberOfCustomer AS FLOAT) / SUM(NumberOfCustomer) OVER (), 2) AS Percentage
-FROM tbl_segment;
+SELECT 
+    CONCAT(r_tier, f_tier, m_tier) AS rfm_score,
+    COUNT(customer_id) AS NumberOfCustomer
+FROM tbl_tier
+GROUP BY rfm_score;
 ```
+
+## Conclusion
+
+The analysis of the bike store's performance provides valuable insights into sales trends, customer behavior, and product performance. By leveraging these findings, the business can implement targeted strategies for growth and sustainability in a competitive market. As always, continuous analysis and adaptation will be key to long-term success.
