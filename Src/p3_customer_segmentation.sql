@@ -1,6 +1,6 @@
--- P3: Customer segmentation
+-- P3: Customer Insights
 
--- Q10: Impact of customer segmentation on sale
+-- 10. How does customer segmentation (based on RFM analysis) impact overall sales performance?
 
 WITH tbl_rfm AS (
     SELECT 
