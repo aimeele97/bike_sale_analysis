@@ -55,33 +55,11 @@ The analysis focused on ten key business questions, including:
 
 ## Key Findings
 
-### Sales Trends
-
-- **Performance Peaks**: The store's performance peaked in 2017, followed by a notable decline in 2018, suggesting an overall downward trend.
-  
-### Market Insights
-
-- **Dominance of New York**: New York contributed approximately 65% of total revenue each year.
-  
-### Revenue Fluctuations
-
-- Revenue saw drastic changes, dropping from $537,192 in April 2018 to $188.99 in June due to a closure in May, before rebounding to $9,484 in July.
-  
-### Sales Patterns
-
-- No consistent best-selling months across states indicate that sales are not heavily seasonally dependent.
-  
-### Ordering Trends
-
-- New York saw peak orders on Sundays, Tuesdays, and Thursdays, while Texas's highest orders were on Sundays and Mondays.
-
-### Product Insights
-
-- **Top-Selling Category**: Cruisers comprised 29% of total sales, with Electra being the most popular brand.
-
-### Customer Breakdown
-
-- The customer base consisted of 44% regulars, 20% new customers, with high-paying and regular customers accounting for 11% and 12%, respectively.
+- **Sales Trends**: Peak sales occurred in 2017, with a decline in 2018. Investigate underlying causes for this trend.
+- **Market Leadership**: New York contributed about 65% of total revenue. Targeted marketing efforts should focus on this state.
+- **Monthly Patterns**: No consistent seasonal trends were observed; sales peaks varied significantly by state.
+- **Product Performance**: Cruisers accounted for 29% of total sales, with Electra being the top brand.
+- **Customer Segmentation**: 44% of customers were regulars, highlighting opportunities for enhanced loyalty programs.
 
 ## Recommendations for Future Growth
 
