@@ -1,6 +1,6 @@
--- P1: Sale Trends
+-- P1: Sales Trends - State Performance and Sales Patterns
 
--- Q1: Total orders, quantity, and revenue by year
+-- 1. What were the total orders, quantity sold, and revenue generated each year?
 
 /* Create VIEW for table combine */
 DROP VIEW tbl_combine
@@ -20,7 +20,8 @@ SELECT
 FROM tbl_combine
 GROUP BY Year
 ORDER BY Year;
--- Q2: Monthly revenue accumulation
+
+-- 2. How did the monthly revenue accumulate over the analysis period?
 WITH monthly_sales AS (
     SELECT
         year,
@@ -36,7 +37,7 @@ SELECT
     CAST(SUM(total_sales) OVER (ORDER BY year, month) AS NUMERIC(10,2)) AS accumulative
 FROM monthly_sales;
 
--- Q3: Monthly sales figures and growth rate
+-- 3. What were the monthly sales figures, and how did the growth rate fluctuate month-over-month?
     Month,
     Year,
     CAST(SUM(final_price)AS DECIMAL(10,2)) recent_sale,
@@ -46,7 +47,7 @@ FROM tbl_combine
 GROUP BY Month, Year
 ORDER BY year, growth_rate, month;
 
--- Q4: Highest revenue contribution by year
+-- 4. Which states contributed the highest revenue each year?
 WITH group_tbl AS (
     SELECT 
         Year,
@@ -62,7 +63,7 @@ SELECT *,
 FROM group_tbl
 ORDER BY year, TotalRevenue desc
 
--- Q5: Top 3 best selling month by state
+-- 5. What were the top three best-selling months for each state?
 WITH group_tbl AS (
     SELECT 
         Month,
@@ -84,7 +85,7 @@ SELECT *
 FROM tbl_rank
 WHERE rank <=3
 
--- Q6: Top 3 performance months by state
+-- 6. Which three months had the highest performance (in terms of revenue) for each state?
 WITH ranked_orders AS (
     SELECT state, Month, Year,
            COUNT(DISTINCT order_id) AS NumberOrders,
@@ -99,7 +100,7 @@ FROM ranked_orders
 WHERE row_number < 4
 ORDER BY state, year;
 
--- Q7: Sales patterns by weekday
+-- 7. What are the sales patterns observed across different weekdays?
 WITH tbl_row AS (
 SELECT year,
     State,
