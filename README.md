@@ -31,16 +31,16 @@ The data used for this analysis comes from a sample provided in the [SQL Server 
 The analysis focused on ten key business questions, including:
 
 ## Business Questions
-1. **Total orders, quantity sold, and revenue by year.**
-2. **Monthly revenue accumulation.**
-3. **Monthly sales figures and growth rates.**
-4. **Highest revenue contributions by state.**
-5. **Top 3 best-selling months by state.**
-6. **Top 3 performance months by state.**
-7. **Sales patterns by weekday.**
-8. **Top 10 performing product categories.**
-9. **Top 3 bikes by category.**
-10. **Impact of customer segmentation on sales.**
+1. What were the total orders, quantity sold, and revenue generated each year?
+2. How did the monthly revenue accumulate over the analysis period?
+3. What were the monthly sales figures, and how did the growth rate fluctuate month-over-month?
+4. Which states contributed the highest revenue each year?
+5. What were the top three best-selling months for each state?
+6. Which three months had the highest performance (in terms of revenue) for each state?
+7. What are the sales patterns observed across different weekdays?
+8. Which product categories performed the best in terms of sales?
+9. What are the top three bikes sold in each product category?
+10. How does customer segmentation (based on RFM analysis) impact overall sales performance?
 
 ## Key Findings
 
