@@ -30,8 +30,6 @@ The data used for this analysis comes from a sample provided in the [SQL Server 
 
 The analysis focused on ten key business questions, including:
 
-## Business Questions
-
 ### Sales Trends
 1. What were the total orders, quantity sold, and revenue generated each year?
 2. How did the monthly revenue accumulate over the analysis period?
@@ -51,7 +49,6 @@ The analysis focused on ten key business questions, including:
 
 ### Customer Insights
 10. How does customer segmentation (based on RFM analysis) impact overall sales performance?
-
 
 ## Key Findings
 
@@ -74,7 +71,7 @@ To reverse the downward trend and capitalize on market potential, consider the f
 
 Here are a few SQL queries that were instrumental in deriving the insights:
 
-### Total Orders, Quantity, and Revenue by Year
+### What were the total orders, quantity sold, and revenue generated each year?
 ```sql
 SELECT 
     Year,
@@ -86,7 +83,7 @@ GROUP BY Year
 ORDER BY Year;
 ```
 
-### Monthly Revenue Accumulation
+### How did the monthly revenue accumulate over the analysis period?
 ```sql
 WITH monthly_sales AS (
     SELECT
@@ -104,7 +101,7 @@ SELECT
 FROM monthly_sales;
 ```
 
-### Impact of Customer Segmentation on Sales
+### How does customer segmentation (based on RFM analysis) impact overall sales performance?
 ```sql
 WITH tbl_rfm AS (
     SELECT 
