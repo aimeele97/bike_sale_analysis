@@ -1,4 +1,4 @@
-# Analyzing Bike Store Revenue: Insights from 2016 to 2018
+# Analyzing Bike Store Revenue - Sales trends analysis
 
 ![Bike Store Logo](https://github.com/Aimee-Le/BikeStoreAnalysis/blob/main/logomain.png)
 
@@ -30,12 +30,10 @@ The data used for this analysis comes from a sample provided in the [SQL Server 
 
 The analysis focused on ten key business questions, including:
 
-### Key metrics
 1. What were the total orders, quantity sold, and revenue generated each year?
 2. How did the monthly revenue accumulate over the analysis period?
 3. What were the monthly sales figures, and how did the growth rate fluctuate month-over-month?
 
-### State Performance
 4. Which states contributed the highest revenue each year?
 5. What were the top three best-selling months for each state?
 6. Which three months had the highest performance (in terms of revenue) for each state?
@@ -64,9 +62,8 @@ The analysis focused on ten key business questions, including:
 
 ## Sample SQL Queries Used in the Analysis
 
-Here are a few SQL queries that were instrumental in deriving the insights:
+__What were the total orders, quantity sold, and revenue generated each year?__
 
-### What were the total orders, quantity sold, and revenue generated each year?
 ```sql
 SELECT 
     Year,
@@ -78,7 +75,8 @@ GROUP BY Year
 ORDER BY Year;
 ```
 
-### How did the monthly revenue accumulate over the analysis period?
+__How did the monthly revenue accumulate over the analysis period?__
+
 ```sql
 WITH monthly_sales AS (
     SELECT
@@ -96,7 +94,8 @@ SELECT
 FROM monthly_sales;
 ```
 
-### How does customer segmentation (based on RFM analysis) impact overall sales performance?
+__How does customer segmentation (based on RFM analysis) impact overall sales performance?__
+
 ```sql
 WITH tbl_rfm AS (
     SELECT 
@@ -145,4 +144,4 @@ GROUP BY rfm_score;
 
 ## Conclusion
 
-The analysis of the bike store's performance provides valuable insights into sales trends, customer behavior, and product performance. By leveraging these findings, the business can implement targeted strategies for growth and sustainability in a competitive market. As always, continuous analysis and adaptation will be key to long-term success.
+The company should focus on key strategies base on the analysis to drive growth. Target New York market, which generates 65% of revenue, to maximize marketing impact. Promote cruisers, particularly the Electra brand, to boost sales. Enhance loyalty programs for the 44% of regular customers to improve retention. These actions will strengthen the company’s market position.
