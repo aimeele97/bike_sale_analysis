@@ -7,19 +7,17 @@ In the competitive retail landscape, data-driven decisions are crucial for succe
 
 ## Objectives of the Analysis
 
-This project aims to achieve several critical objectives:
-
 - **Sales Analysis**: Examine annual and monthly sales figures, including cumulative sales and growth rates.
 - **Revenue Insights**: Identify patterns and contributions from different states, peak sales months, and ordering trends throughout the week.
 - **Product Performance**: Evaluate how different categories, brands, and individual products performed.
 - **Customer Segmentation**: Implement RFM (Recency, Frequency, Monetary) analysis to better understand customer behavior.
 
-## The processes
+## The steps
 
-- Workspace setup: Downloading and importing relevant CSV files into a database using Azure Data Studio.
-- Data overview: Grasping the data structure, defining business problems, and formulating key analytical questions.
+- Data collection: Downloading and importing relevant CSV files into a database using Azure Data Studio.
+- Define key questions: Identify business challenges, and formulate key analytical questions to guide the analysis.
 - Data cleaning: Ensuring accuracy by correcting data types, handling null values, and removing irrelevant columns.
-- Data Analysis: Answering business questions while optimizing SQL queries for performance.
+- Data Analysis: Answering business questions, provide the key insights. Also focusing on optimizing SQL queries performance.
 
 ## Dataset Information
 
