@@ -33,19 +33,12 @@ The analysis focused on ten key business questions, including:
 1. What were the total orders, quantity sold, and revenue generated each year?
 2. How did the monthly revenue accumulate over the analysis period?
 3. What were the monthly sales figures, and how did the growth rate fluctuate month-over-month?
-
 4. Which states contributed the highest revenue each year?
 5. What were the top three best-selling months for each state?
 6. Which three months had the highest performance (in terms of revenue) for each state?
-
-### Sales Patterns
 7. What are the sales patterns observed across different weekdays?
-
-### Product Performance
 8. Which product categories performed the best in terms of sales?
 9. What are the top three bikes sold in each product category?
-
-### Customer Insights
 10. How does customer segmentation (based on RFM analysis) impact overall sales performance?
 
 ## Key Findings
@@ -54,7 +47,7 @@ The analysis focused on ten key business questions, including:
 - Cruisers accounted for 29% of total sales, with Electra being the top brand.
 - 44% of customers were regulars, highlighting opportunities for enhanced loyalty programs.
 
-## Recommendations for Future Growth
+## Recommendations
 
 - Since New York is the largest market and a major revenue contributor, it’s crucial to enhance our presence there. Strategies should include targeted marketing campaigns, improving customer engagement, and forming partnerships with local businesses to boost sales.
 - Consider promotional campaigns specifically for cruisers to capitalize on this strong market segment.
