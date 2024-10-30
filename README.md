@@ -61,7 +61,7 @@ The analysis focused on ten key business questions, including:
 - Since New York is the largest market and a major revenue contributor, it’s crucial to enhance our presence there. Strategies should include targeted marketing campaigns, improving customer engagement, and forming partnerships with local businesses to boost sales.
 - Consider promotional campaigns specifically for cruisers to capitalize on this strong market segment.
 - Strengthen customer retention through enhanced loyalty programs that reward frequent purchases and engagement.
-- 
+
 ## Sample SQL Queries Used in the Analysis
 
 Here are a few SQL queries that were instrumental in deriving the insights:
