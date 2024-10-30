@@ -30,7 +30,7 @@ The data used for this analysis comes from a sample provided in the [SQL Server 
 
 The analysis focused on ten key business questions, including:
 
-### Sales Trends
+### Key metrics
 1. What were the total orders, quantity sold, and revenue generated each year?
 2. How did the monthly revenue accumulate over the analysis period?
 3. What were the monthly sales figures, and how did the growth rate fluctuate month-over-month?
