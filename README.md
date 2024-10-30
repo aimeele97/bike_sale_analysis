@@ -51,22 +51,17 @@ The analysis focused on ten key business questions, including:
 10. How does customer segmentation (based on RFM analysis) impact overall sales performance?
 
 ## Key Findings
-
-- **Sales Trends**: Peak sales occurred in 2017, with a decline in 2018. Investigate underlying causes for this trend.
-- **Market Leadership**: New York contributed about 65% of total revenue. Targeted marketing efforts should focus on this state.
-- **Monthly Patterns**: No consistent seasonal trends were observed; sales peaks varied significantly by state.
-- **Product Performance**: Cruisers accounted for 29% of total sales, with Electra being the top brand.
-- **Customer Segmentation**: 44% of customers were regulars, highlighting opportunities for enhanced loyalty programs.
+- 2017 was the best-selling year, but there has been a decline since then, with a notable drop in sales starting in June 2018.
+- New York contributed about 65% of total revenue. Targeted marketing efforts should focus on this state.
+- Cruisers accounted for 29% of total sales, with Electra being the top brand.
+- 44% of customers were regulars, highlighting opportunities for enhanced loyalty programs.
 
 ## Recommendations for Future Growth
 
-To reverse the downward trend and capitalize on market potential, consider the following strategies:
-
-- **Targeted Marketing**: Investigate the reasons for the sales decline post-2017 and implement focused marketing campaigns, especially in New York.
-- **Inventory Management**: Utilize data analytics to optimize inventory levels based on peak ordering times.
-- **Customer Engagement**: Develop loyalty programs, introduce seasonal promotions, and enhance the online shopping experience.
-- **Staff Training**: Invest in employee training and establish a feedback loop to ensure excellent customer service.
-
+- Since New York is the largest market and a major revenue contributor, it’s crucial to enhance our presence there. Strategies should include targeted marketing campaigns, improving customer engagement, and forming partnerships with local businesses to boost sales.
+- Consider promotional campaigns specifically for cruisers to capitalize on this strong market segment.
+- Strengthen customer retention through enhanced loyalty programs that reward frequent purchases and engagement.
+- 
 ## Sample SQL Queries Used in the Analysis
 
 Here are a few SQL queries that were instrumental in deriving the insights:
