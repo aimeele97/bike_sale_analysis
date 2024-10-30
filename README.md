@@ -3,7 +3,7 @@
 ![Bike Store Logo](https://github.com/Aimee-Le/BikeStoreAnalysis/blob/main/logomain.png)
 
 __Problem Statement__:
-In the competitive world of retail, data-driven decisions can make all the difference. This analysis explores a bicycle store's performance from 2016 to 2018, focusing on key business questions to drive future growth.
+In the competitive retail landscape, data-driven decisions are crucial for success. This analysis examines sales trends at a bicycle store from 2016 to 2018, identifying key business questions and providing actionable insights to support effective decision-making and drive growth.
 
 ## Objectives of the Analysis
 
