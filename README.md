@@ -3,7 +3,7 @@
 ![Bike Store Logo](https://github.com/Aimee-Le/BikeStoreAnalysis/blob/main/logomain.png)
 
 __Problem Statement__:
-In the competitive retail sector, making data-driven decisions is essential. This analysis focuses on sales trends at a bicycle store from 2016 to 2018 by idetifying business problems and offering actionable insights into sales data to facilitate effective decision-making and foster growth.
+In the competitive retail sector, making data-driven decisions is essential. This analysis focuses on sales trends at a bicycle store from 2016 to 2018 by identifying business problems and offering actionable insights into sales data to facilitate effective decision-making and foster growth.
 
 ## Objectives of the Analysis
 
