@@ -16,11 +16,13 @@ This project aims to achieve several critical objectives:
 
 ## Key Tasks Undertaken
 
-1. **Workspace Setup**: Downloading and importing relevant CSV files into a database using Azure Data Studio.
-2. **Data Understanding**: Grasping the data structure, defining business problems, and formulating key analytical questions.
-3. **Data Cleaning**: Ensuring accuracy by correcting data types, handling null values, and removing irrelevant columns.
-4. **Data Analysis**: Answering business questions while optimizing SQL queries for performance.
-5. **Documentation**: Summarizing findings and methodologies for clear presentation in the GitHub repository.
+Workspace setup: Downloading and importing relevant CSV files into a database using Azure Data Studio.
+
+Data overview: Grasping the data structure, defining business problems, and formulating key analytical questions.
+
+Data cleaning: Ensuring accuracy by correcting data types, handling null values, and removing irrelevant columns.
+
+Data Analysis: Answering business questions while optimizing SQL queries for performance.
 
 ## Dataset Information
 
