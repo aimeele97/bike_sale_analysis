@@ -14,15 +14,12 @@ This project aims to achieve several critical objectives:
 - **Product Performance**: Evaluate how different categories, brands, and individual products performed.
 - **Customer Segmentation**: Implement RFM (Recency, Frequency, Monetary) analysis to better understand customer behavior.
 
-## Key Tasks Undertaken
+## The processes
 
-Workspace setup: Downloading and importing relevant CSV files into a database using Azure Data Studio.
-
-Data overview: Grasping the data structure, defining business problems, and formulating key analytical questions.
-
-Data cleaning: Ensuring accuracy by correcting data types, handling null values, and removing irrelevant columns.
-
-Data Analysis: Answering business questions while optimizing SQL queries for performance.
+- Workspace setup: Downloading and importing relevant CSV files into a database using Azure Data Studio.
+- Data overview: Grasping the data structure, defining business problems, and formulating key analytical questions.
+- Data cleaning: Ensuring accuracy by correcting data types, handling null values, and removing irrelevant columns.
+- Data Analysis: Answering business questions while optimizing SQL queries for performance.
 
 ## Dataset Information
 
