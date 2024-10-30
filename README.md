@@ -5,7 +5,7 @@
 __Problem Statement__:
 In the competitive world of retail, data-driven decisions can make all the difference. This analysis explores a bicycle store's performance from 2016 to 2018, focusing on key business questions to drive future growth.
 
-### Objectives of the Analysis
+## Objectives of the Analysis
 
 This project aims to achieve several critical objectives:
 
@@ -14,18 +14,18 @@ This project aims to achieve several critical objectives:
 - **Product Performance**: Evaluate how different categories, brands, and individual products performed.
 - **Customer Segmentation**: Implement RFM (Recency, Frequency, Monetary) analysis to better understand customer behavior.
 
-### The processes
+## The processes
 
 - Workspace setup: Downloading and importing relevant CSV files into a database using Azure Data Studio.
 - Data overview: Grasping the data structure, defining business problems, and formulating key analytical questions.
 - Data cleaning: Ensuring accuracy by correcting data types, handling null values, and removing irrelevant columns.
 - Data Analysis: Answering business questions while optimizing SQL queries for performance.
 
-### Dataset Information
+## Dataset Information
 
 The data used for this analysis comes from a sample provided in the [SQL Server Tutorial](http://www.sqlservertutorial.net/load-sample-database/).
 
-### Business Questions 
+## Business Questions 
 
 The analysis focused on ten key business questions, including:
 
@@ -40,19 +40,19 @@ The analysis focused on ten key business questions, including:
 9. What are the top three bikes sold in each product category?
 10. How does customer segmentation (based on RFM analysis) impact overall sales performance?
 
-### Key Findings
+## Key Findings
 - 2017 was the best-selling year, but there has been a decline since then, with a notable drop in sales starting in June 2018.
 - New York contributed about 65% of total revenue. Targeted marketing efforts should focus on this state.
 - Cruisers accounted for 29% of total sales, with Electra being the top brand.
 - 44% of customers were regulars, highlighting opportunities for enhanced loyalty programs.
 
-### Recommendations
+## Recommendations
 
 - Since New York is the largest market and a major revenue contributor, it’s crucial to enhance our presence there. Strategies should include targeted marketing campaigns, improving customer engagement, and forming partnerships with local businesses to boost sales.
 - Consider promotional campaigns specifically for cruisers to capitalize on this strong market segment.
 - Strengthen customer retention through enhanced loyalty programs that reward frequent purchases and engagement.
 
-#### Sample SQL Queries Used in the Analysis
+## Sample SQL Queries Used in the Analysis
 
 __What were the total orders, quantity sold, and revenue generated each year?__
 
